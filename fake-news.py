@@ -36,7 +36,11 @@ matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
 
 class TestNews(unittest.TestCase):
     def test_real(self):
-        self.assertEqual(pac.predict(tfidf_test)[0], 'REAL')
+        real_news = "Ukraine: Austrian leader, Putin meet…other new developments"
+        data = tfidf_vectorizer.transform([real_news]).toarray()
+        self.assertEqual(pac.predict(data)[0], 'REAL')
 
     def test_fake(self):
-        self.assertEqual(pac.predict(tfidf_test)[1], 'FAKE')
+        fake_news = "Putin summons the soul of Hitler"
+        data = tfidf_vectorizer.transform([fake_news]).toarray()
+        self.assertEqual(pac.predict(data)[0], 'FAKE')
