@@ -25,3 +25,4 @@ When prompted, enter the headline in text form in the terminal to get either "RE
 
 - **cm.py**  
 This file contains the Confusion Matrix showing the validity of the model.
+![image](https://user-images.githubusercontent.com/104475739/201575746-46eaeda6-5ce7-41ac-a9fe-0ced0acea80d.png)
