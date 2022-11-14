@@ -28,10 +28,16 @@ pac.fit(tfidf_train, y_train)
 
 y_pred = pac.predict(tfidf_test)
 score = accuracy_score(y_test, y_pred)
-print(f'Accuracy: {round(score*100,2)}%')
+print("This algorithm is intended to discern the validity of a news article.")
+print(f'Accuracy of algorithm: {round(score*100,2)}%')
 
 matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
 # 589 true positives, 587 true negatives, 42 false positives, and 49 false negatives
+
+print("Enter the headline of the article you want to detect.")
+user_input = str(input())
+data = tfidf_vectorizer.transform([user_input]).toarray()
+print("The following article is " + pac.predict(data)[0])
 
 
 class TestNews(unittest.TestCase):
