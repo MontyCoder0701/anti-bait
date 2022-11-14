@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import PassiveAggressiveClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
+import unittest
 
 df = pd.read_csv('./news.csv')
 
@@ -31,4 +32,11 @@ print(f'Accuracy: {round(score*100,2)}%')
 
 matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
 # 589 true positives, 587 true negatives, 42 false positives, and 49 false negatives
-print(matrix)
+
+
+class TestNews(unittest.TestCase):
+    def test_real(self):
+        self.assertEqual(pac.predict(tfidf_test)[0], 'REAL')
+
+    def test_fake(self):
+        self.assertEqual(pac.predict(tfidf_test)[1], 'FAKE')

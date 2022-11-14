@@ -8,3 +8,11 @@ The data to train this program is provided in the file **news.csv**.
 - Numpy
 - Pandas
 - Sklearn
+
+## How to run unit tests
+
+Run the command below.
+
+```sh
+python -m unittest -v [file name]
+```
