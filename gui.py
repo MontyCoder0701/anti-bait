@@ -29,8 +29,6 @@ with st.spinner(text="Loading model..."):
 
 df = pd.read_csv('./news.csv')
 
-
-df.shape
 df.head()
 
 labels = df.label
