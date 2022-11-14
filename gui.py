@@ -5,25 +5,27 @@ from sklearn.linear_model import PassiveAggressiveClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 import streamlit as st
 import seaborn as sn
-import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
+import time
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 components.html(
     """
-    <div style= "color: black; font-weight: bold; text-align: center; font-size: 70px; font-family: Trebuchet MS; text-shadow: 2px 2px 6px #808080;" >
-    Anti
+    <div style= "color: #696969; font-weight: bold; text-align: left; font-size: 40px; font-family: Trebuchet MS;" >
+    <img src = "https://img.icons8.com/external-duo-tone-deni-mao/512/external-safe-healthy-and-medical-duo-tone-deni-mao.png" style="width: 40px; height: 40px"/>
+    Anti Bait
     </div>
-    <div style= "color: white; font-weight: bold; text-align: center; font-size: 35px; font-family: Trebuchet MS; text-shadow: 2px 2px 6px #808080;" >
-    X
-    </div>
-    <div style= "color: white; font-weight: bold; text-align: center; font-size: 70px; font-family: Trebuchet MS; text-shadow: 2px 2px 6px #808080;" >
-    Bait
+    <div style= "color: grey; text-align: left; font-size: 10px; font-family: Trebuchet MS;" >
+    v.1.0.0
     </div>
     """,
-    height=250,
+    height=100,
 )
+
+with st.spinner(text="Loading model..."):
+    time.sleep(5)
+    st.success("Loading complete.")
 
 df = pd.read_csv('./news.csv')
 
@@ -50,30 +52,17 @@ pac.fit(tfidf_train, y_train)
 y_pred = pac.predict(tfidf_test)
 score = accuracy_score(y_test, y_pred)
 
-st.text("This algorithm is intended to discern the validity of a news article.")
-st.text(f'Accuracy of algorithm: {round(score*100,2)}%')
+st.sidebar.header("About the Model")
+st.sidebar.text(f'Accuracy of algorithm: {round(score*100,2)}%')
 
-components.html(
-    """
-    <div>
-    </div>
-    """,
-    height=50,
-)
-
-
+st.subheader("Detection Program")
 user_input = st.text_input(
     "Enter the headline of the article you want to detect.")
 data = tfidf_vectorizer.transform([user_input]).toarray()
+with st.spinner(text="Detecting the validity..."):
+    time.sleep(3)
+    st.success("Detection complete.")
 st.text("The following article is " + pac.predict(data)[0])
-
-components.html(
-    """
-    <div>
-    </div>
-    """,
-    height=50,
-)
 
 matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
 # 589 true positives, 587 true negatives, 42 false positives, and 49 false negatives
@@ -81,4 +70,5 @@ df_cm = pd.DataFrame(matrix, index=["FAKE", "REAL"], columns=[
                      "FAKE", "REAL"])
 sn.set(font_scale=1.4)
 sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
-st.pyplot()
+st.sidebar.header("Confusion Matrix")
+st.sidebar.pyplot()
