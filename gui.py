@@ -11,7 +11,9 @@ import streamlit.components.v1 as components
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.set_page_config(page_title="Anti-Bait", page_icon="https://img.icons8.com/cotton/512/news.png", layout="centered",
-                   initial_sidebar_state="auto", menu_items=None)
+                   initial_sidebar_state="auto", menu_items={
+                       'About': "A ML based program to detect fake news."
+                   })
 
 components.html(
     """
