@@ -8,14 +8,25 @@ The data to train this program is provided in the file **news.csv**.
 - Numpy
 - Pandas
 - Sklearn
+- Streamlit
 
 ## How to run unit tests
 
 Run the command below.
 
 ```sh
-python -m unittest -v [file name]
+python -m unittest -v [fake-news.py]
 ```
+
+## How to use the UI
+
+Run the command below.
+
+```sh
+python -m streamlit run [gui.py]
+```
+
+The UI should be on <http://localhost:8501/>
 
 ## File information
 
@@ -26,3 +37,6 @@ When prompted, enter the headline in text form in the terminal to get either "RE
 - **cm.py**  
 This file contains the Confusion Matrix showing the validity of the model.
 ![image](https://user-images.githubusercontent.com/104475739/201575746-46eaeda6-5ce7-41ac-a9fe-0ced0acea80d.png)
+
+- **gui.py**  
+This file contains the code for GUI showing the model.
