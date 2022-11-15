@@ -7,6 +7,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import PassiveAggressiveClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 import seaborn as sn
+from wordcloud import WordCloud
+import string
 
 df = pd.read_csv('./news.csv')
 
@@ -35,4 +37,26 @@ df_cm = pd.DataFrame(array, index=["FAKE", "REAL"], columns=[
                      "FAKE", "REAL"])
 sn.set(font_scale=1.4)
 sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
+plt.show()
+
+fake = df[df.label == "FAKE"]
+fake['title'] = fake['title'].str.lower()
+all_fake = fake['title'].str.split(' ')
+
+all_fake_cleaned = []
+
+for title in all_fake:
+    title = [x.strip(string.punctuation) for x in title]
+    all_fake_cleaned.append(title)
+
+
+fake_title = [" ".join(title) for title in all_fake_cleaned]
+final_title = " ".join(fake_title)
+
+wordcloud_fake = WordCloud(background_color="white",
+                           colormap="gray_r").generate(final_title)
+
+plt.figure(figsize=(20, 20))
+plt.imshow(wordcloud_fake, interpolation='bilinear')
+plt.axis("off")
 plt.show()

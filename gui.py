@@ -1,4 +1,3 @@
-import string
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -8,15 +7,13 @@ import streamlit as st
 import seaborn as sn
 import streamlit.components.v1 as components
 import time
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 components.html(
     """
-    <div style= "color: #696969; font-weight: bold; text-align: left; font-size: 40px; font-family: Trebuchet MS; box-shadow: 5px 5px 5px #FAA0A0" >
-    <img src = "https://img.icons8.com/external-duo-tone-deni-mao/512/external-safe-healthy-and-medical-duo-tone-deni-mao.png" style="width: 40px; height: 40px"/>
+    <div style= "color: #355E3B; font-weight: bold; text-align: left; font-size: 40px; font-family: Trebuchet MS; box-shadow: 5px 5px 5px #AFE1AF" >
+    <img src = "https://img.icons8.com/fluency/512/security-shield-green.png" style="width: 40px; height: 40px"/>
     Anti Bait
     <div style= "color: grey; text-align: left; font-size: 10px; font-family: Trebuchet MS;" >
     v.1.0.0
@@ -71,30 +68,6 @@ matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
 df_cm = pd.DataFrame(matrix, index=["FAKE", "REAL"], columns=[
                      "FAKE", "REAL"])
 sn.set(font_scale=1.4)
-sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
+sn.heatmap(df_cm, cmap="Greens", annot=True, annot_kws={"size": 16})
 st.sidebar.header("Confusion Matrix")
-st.sidebar.pyplot()
-
-
-fake = df[df.label == "FAKE"]
-fake['title'] = fake['title'].str.lower()
-all_fake = fake['title'].str.split(' ')
-
-all_fake_cleaned = []
-
-for title in all_fake:
-    title = [x.strip(string.punctuation) for x in title]
-    all_fake_cleaned.append(title)
-
-
-fake_title = [" ".join(title) for title in all_fake_cleaned]
-final_title = " ".join(fake_title)
-
-wordcloud_fake = WordCloud(background_color="white",
-                           colormap="gray_r").generate(final_title)
-
-plt.figure(figsize=(20, 20))
-plt.imshow(wordcloud_fake, interpolation='bilinear')
-plt.axis("off")
-st.sidebar.header("Common Fake Words")
 st.sidebar.pyplot()
