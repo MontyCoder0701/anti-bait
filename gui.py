@@ -1,3 +1,4 @@
+import string
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -7,6 +8,8 @@ import streamlit as st
 import seaborn as sn
 import streamlit.components.v1 as components
 import time
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -70,4 +73,28 @@ df_cm = pd.DataFrame(matrix, index=["FAKE", "REAL"], columns=[
 sn.set(font_scale=1.4)
 sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
 st.sidebar.header("Confusion Matrix")
+st.sidebar.pyplot()
+
+
+fake = df[df.label == "FAKE"]
+fake['title'] = fake['title'].str.lower()
+all_fake = fake['title'].str.split(' ')
+
+all_fake_cleaned = []
+
+for title in all_fake:
+    title = [x.strip(string.punctuation) for x in title]
+    all_fake_cleaned.append(title)
+
+
+fake_title = [" ".join(title) for title in all_fake_cleaned]
+final_title = " ".join(fake_title)
+
+wordcloud_fake = WordCloud(background_color="white",
+                           colormap="gray_r").generate(final_title)
+
+plt.figure(figsize=(20, 20))
+plt.imshow(wordcloud_fake, interpolation='bilinear')
+plt.axis("off")
+st.sidebar.header("Words you should watch out for")
 st.sidebar.pyplot()
