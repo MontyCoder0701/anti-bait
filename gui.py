@@ -96,5 +96,5 @@ wordcloud_fake = WordCloud(background_color="white",
 plt.figure(figsize=(20, 20))
 plt.imshow(wordcloud_fake, interpolation='bilinear')
 plt.axis("off")
-st.sidebar.header("Words you should watch out for")
+st.sidebar.header("Common Fake Words")
 st.sidebar.pyplot()
