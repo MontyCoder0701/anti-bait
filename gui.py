@@ -12,15 +12,16 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 components.html(
     """
-    <div style= "color: #696969; font-weight: bold; text-align: left; font-size: 40px; font-family: Trebuchet MS;" >
+    <div style= "color: #696969; font-weight: bold; text-align: left; font-size: 40px; font-family: Trebuchet MS; box-shadow: 5px 5px 5px #FAA0A0" >
     <img src = "https://img.icons8.com/external-duo-tone-deni-mao/512/external-safe-healthy-and-medical-duo-tone-deni-mao.png" style="width: 40px; height: 40px"/>
     Anti Bait
-    </div>
     <div style= "color: grey; text-align: left; font-size: 10px; font-family: Trebuchet MS;" >
     v.1.0.0
+    <br></br>
+    </div>
     </div>
     """,
-    height=100,
+    height=150,
 )
 
 with st.spinner(text="Loading model..."):
