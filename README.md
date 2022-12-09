@@ -1,7 +1,9 @@
 # Anti-Bait 📰
 
 Uses Python ML to detect fake news.  
-The data to train this program is provided in the file **news.csv**.
+The data to train this program is provided in the file **news.csv**.  
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ## Libraries used
 
