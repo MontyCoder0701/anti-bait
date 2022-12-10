@@ -32,7 +32,7 @@ score = accuracy_score(y_test, y_pred)
 print("This algorithm is intended to discern the validity of a news article.")
 print(f'Accuracy of algorithm: {round(score*100,2)}%')
 
-matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
+matrix = confusion_matrix(y_test, y_pred, labels=['BIASED', 'UNBIASED'])
 # 589 true positives, 587 true negatives, 42 false positives, and 49 false negatives
 
 print("Enter the headline of the article you want to detect.")
@@ -45,9 +45,9 @@ class TestNews(unittest.TestCase):
     def test_real(self):
         real_news = "Ukraine: Austrian leader, Putin meet…other new developments"
         data = tfidf_vectorizer.transform([real_news]).toarray()
-        self.assertEqual(pac.predict(data)[0], 'REAL')
+        self.assertEqual(pac.predict(data)[0], 'UNBIASED')
 
     def test_fake(self):
         fake_news = "Putin summons the soul of Hitler"
         data = tfidf_vectorizer.transform([fake_news]).toarray()
-        self.assertEqual(pac.predict(data)[0], 'FAKE')
+        self.assertEqual(pac.predict(data)[0], 'BIASED')

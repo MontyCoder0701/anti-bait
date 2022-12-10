@@ -63,10 +63,10 @@ with st.spinner(text="Detecting the validity..."):
     st.success("Detection complete.")
 st.text("The following article is " + pac.predict(data)[0])
 
-matrix = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
+matrix = confusion_matrix(y_test, y_pred, labels=['BIASED', 'UNBIASED'])
 # 589 true positives, 587 true negatives, 42 false positives, and 49 false negatives
-df_cm = pd.DataFrame(matrix, index=["FAKE", "REAL"], columns=[
-                     "FAKE", "REAL"])
+df_cm = pd.DataFrame(matrix, index=["BIASED", "UNBIASED"], columns=[
+                     "BIASED", "UNBIASED"])
 sn.set(font_scale=1.4)
 sn.heatmap(df_cm, cmap="Greens", annot=True, annot_kws={"size": 16})
 st.sidebar.header("Confusion Matrix")

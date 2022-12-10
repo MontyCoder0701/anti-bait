@@ -32,14 +32,14 @@ pac.fit(tfidf_train, y_train)
 y_pred = pac.predict(tfidf_test)
 score = accuracy_score(y_test, y_pred)
 
-array = confusion_matrix(y_test, y_pred, labels=['FAKE', 'REAL'])
-df_cm = pd.DataFrame(array, index=["FAKE", "REAL"], columns=[
-                     "FAKE", "REAL"])
+array = confusion_matrix(y_test, y_pred, labels=['BIASED', 'UNBIASED'])
+df_cm = pd.DataFrame(array, index=["BIASED", "UNBIASED"], columns=[
+                     "BIASED", "UNBIASED"])
 sn.set(font_scale=1.4)
 sn.heatmap(df_cm, annot=True, annot_kws={"size": 16})
 plt.show()
 
-fake = df[df.label == "FAKE"]
+fake = df[df.label == "BIASED"]
 fake['title'] = fake['title'].str.lower()
 all_fake = fake['title'].str.split(' ')
 
