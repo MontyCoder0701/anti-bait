@@ -10,6 +10,9 @@ import time
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
+st.set_page_config(page_title="Anti-Bait", page_icon="🛡️", layout="centered",
+                   initial_sidebar_state="auto", menu_items=None)
+
 components.html(
     """
     <div style= "color: #355E3B; font-weight: bold; text-align: left; font-size: 40px; font-family: Trebuchet MS; box-shadow: 5px 5px 5px #AFE1AF" >
