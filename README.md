@@ -12,12 +12,32 @@ The data to train this program is provided in the file **news.csv**.
 - Sklearn
 - Streamlit
 
+## Local development (Windows)
+
+```sh
+py -m pip install --user virtualenv
+```
+
+```sh
+py -m venv env
+```
+
+```sh
+.\env\Scripts\activate.ps1
+```
+
+## Installing libraries
+
+```sh
+py -m pip install [library-name]
+```
+
 ## How to run unit tests
 
 Run the command below.
 
 ```sh
-python -m unittest -v fake-news.py
+py -m unittest -v fake-news.py
 ```
 
 ## How to use the UI
@@ -25,7 +45,7 @@ python -m unittest -v fake-news.py
 Run the command below.
 
 ```sh
-python -m streamlit run gui.py
+py -m streamlit run gui.py
 
 ```
 

@@ -55,18 +55,22 @@ st.sidebar.header("About the Model")
 st.sidebar.text(f'Accuracy of algorithm: {round(score*100,2)}%')
 
 st.subheader("Detection Program")
-user_input = st.text_input(
-    "Enter the headline of the article you want to detect.")
-data = tfidf_vectorizer.transform([user_input]).toarray()
-with st.spinner(text="Detecting the validity..."):
-    time.sleep(3)
-    st.success("Detection complete.")
-st.text("The following article is " + pac.predict(data)[0])
+
+with st.form("my_form"):
+    user_input = st.text_input(
+        "Enter the headline of the article you want to detect.")
+
+    submitted = st.form_submit_button("Submit")
+    if submitted:
+        data = tfidf_vectorizer.transform([user_input]).toarray()
+        with st.spinner(text="Detecting the validity..."):
+            time.sleep(3)
+            st.success("Detection complete.")
+        st.text("The following article is " + pac.predict(data)[0])
 
 matrix = confusion_matrix(y_test, y_pred, labels=['BIASED', 'UNBIASED'])
-# 589 true positives, 587 true negatives, 42 false positives, and 49 false negatives
 df_cm = pd.DataFrame(matrix, index=["BIASED", "UNBIASED"], columns=[
-                     "BIASED", "UNBIASED"])
+    "BIASED", "UNBIASED"])
 sn.set(font_scale=1.4)
 sn.heatmap(df_cm, cmap="Greens", annot=True, annot_kws={"size": 16})
 st.sidebar.header("Confusion Matrix")
