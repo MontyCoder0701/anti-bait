@@ -57,8 +57,13 @@ st.sidebar.text(f'Accuracy of algorithm: {round(score*100,2)}%')
 st.subheader("Detection Program")
 
 with st.form("my_form"):
-    user_input = st.text_input(
-        "Enter the headline of the article you want to detect.")
+    try:
+        user_input = st.text_input(
+            "Enter the headline of the article you want to detect.")
+        if len(user_input) == 0:
+            st.text("The input is currently blank.")
+    except ValueError:
+        st.error("Please enter the article headline in english sentence format.")
 
     submitted = st.form_submit_button("Submit")
     if submitted:
