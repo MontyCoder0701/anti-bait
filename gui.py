@@ -63,10 +63,9 @@ with st.form("my_form"):
     try:
         user_input = st.text_input(
             "Enter the headline of the article you want to detect.")
-        if len(user_input) == 0:
-            st.text("The input is currently blank.")
     except ValueError:
-        st.error("Please enter the article headline in english sentence format.")
+        st.error(
+            "Please enter the article headline in a full english sentence format.")
 
     submitted = st.form_submit_button("Submit")
     if submitted:
@@ -74,7 +73,13 @@ with st.form("my_form"):
         with st.spinner(text="Detecting the validity..."):
             time.sleep(3)
             st.success("Detection complete.")
-        st.text("The following article is " + pac.predict(data)[0])
+        if len(user_input) == 0:
+            st.error(
+                "The input is blank. Please try again.")
+        else:
+            st.text("The following article is " + pac.predict(data)[0])
+            if pac.predict(data)[0] == "UNBIASED":
+                st.balloons()
 
 matrix = confusion_matrix(y_test, y_pred, labels=['BIASED', 'UNBIASED'])
 df_cm = pd.DataFrame(matrix, index=["BIASED", "UNBIASED"], columns=[

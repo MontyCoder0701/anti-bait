@@ -22,6 +22,12 @@ py -m pip install --user virtualenv
 py -m venv env
 ```
 
+Authorize access
+
+```sh
+Set-ExecutionPolicy Unrestricted -Scope Process
+```
+
 ```sh
 .\env\Scripts\activate.ps1
 ```
