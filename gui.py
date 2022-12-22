@@ -7,6 +7,7 @@ import streamlit as st
 import seaborn as sn
 import streamlit.components.v1 as components
 import time
+import re
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -77,9 +78,14 @@ with st.form("my_form"):
             st.error(
                 "The input is blank. Please try again.")
         else:
-            st.text("The following article is " + pac.predict(data)[0])
-            if pac.predict(data)[0] == "UNBIASED":
-                st.balloons()
+            match = re.search(r'[a-zA-Z]', user_input)
+            if match == None:
+                st.error(
+                    "This is not a sentence. Please try again.")
+            else:
+                st.text("The following article is " + pac.predict(data)[0])
+                if pac.predict(data)[0] == "UNBIASED":
+                    st.balloons()
 
 matrix = confusion_matrix(y_test, y_pred, labels=['BIASED', 'UNBIASED'])
 df_cm = pd.DataFrame(matrix, index=["BIASED", "UNBIASED"], columns=[
